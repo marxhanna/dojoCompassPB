@@ -35,6 +35,7 @@ app.use('/',require('./routes/broken_authentication/broken_authentication'));
 app.use('/',require('./routes/broken_authentication_II/broken_authentication_II'));
 app.use('/',require('./routes/broken_authentication_III/broken_authentication_III'));
 app.use('/',require('./utils/aux_router'));
+//app.use('/', require('./routes/upload/upload'));
 
 // Static files and view engine setup
 app.use(express.static(__dirname + '/views'));

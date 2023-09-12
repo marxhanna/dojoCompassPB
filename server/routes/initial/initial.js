@@ -4,6 +4,9 @@ const cookieParser = require('cookie-parser');
 const { getUserById } = require('../../service/service');
 router.use(cookieParser());
 
+const jwt = require('jsonwebtoken');
+
+
 const renderData = {};
 
 
@@ -11,8 +14,8 @@ const renderData = {};
 router.get(
 	'/',
 	errHandling(async (req, res) => {
-		const { user_id } = req.cookies;
-		const usuarioAutenticado = user_id != undefined;
+		const { session } = req.cookies;
+		const usuarioAutenticado = session != undefined;
 		vulnType = getVulnType()
 		renderData.vulnType = vulnType;
 
@@ -26,25 +29,32 @@ router.get(
 );
 
 // const cookies = { sameSite: 'none', secure: false, httpOnly: false };
-const cookies = { sameSite: 'none', secure: true, httpOnly: false };
+//const cookies = { sameSite: 'none', secure: true, httpOnly: false };
 // const cookies = { sameSite: 'strict', secure: false, httpOnly: false };
-// const cookies = { sameSite: 'strict', secure: true, httpOnly: true };
+const cookies = { sameSite: 'strict', secure: true, httpOnly: true };
 // const cookies = { sameSite: 'lax', secure: false, httpOnly: false };
 
 //REALIZA O LOGIN - SET COOKIES
 router.get(
 	'/login',
 	errHandling(async (req, res) => {
-		const user_id = 1;
-		const { rows } = await getUserById(user_id);
-		renderData.username = rows[0].username;
-		vulnType = getVulnType()
-		renderData.vulnType = vulnType;
-		renderData.hasUsers = 'true';
-		res.cookie('user_id', user_id, cookies).render(
-			'initial_page',
-			renderData
-		);
+	  const user_id = 1;
+	  const { rows } = await getUserById(user_id);
+	  const user = rows[0];
+	// CRIA OBJETO COM APENAS OS QUATRO PRIMEIRO VALROES DE USER
+	  const userSubset = {
+		id_user: user.id_user,
+		nome: user.nome,
+		username: user.username,
+		email: user.email,
+	  };
+	  // USA PARA CRIAR O TOKEN DE SESSÃO
+	  const token = jwt.sign(userSubset, process.env.JWT_SECRET, { expiresIn: '1m' });
+	  renderData.username = user.username;
+	  vulnType = getVulnType();
+	  renderData.vulnType = vulnType;
+	  renderData.hasUsers = 'true';
+	  res.cookie('session', token, cookies).render('initial_page', renderData);
 	})
 );
 

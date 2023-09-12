@@ -28,8 +28,7 @@ router.get(
 	})
 );
 
-// Foi alterado a propriedade router.get para router.post
-router.post( 
+router.get( 
 	'/csrf-get/alterarusername',
 	errHandling(async (req, res) => {
 		//CRIA A VARIAVEI COM BASE NO QUE VEIO NA URL

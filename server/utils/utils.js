@@ -53,3 +53,15 @@ exports.createFakeUser = async () => {
 
 	return rows[0]
 };
+
+exports.verifyLogin = (session) => { // FUNÇÃO QUE VERIFICA SE HÁ SESSÃO ESTÁ ATIVA
+	try {
+	  const decodedToken = jwt.verify(session, process.env.JWT_SECRET);
+	  return decodedToken; 	  // O TOKEN ESTA OK
+	} catch (err) {
+		if (err.name === 'TokenExpiredError') {
+			return 'SUA SESSÃO EXPIROU. FAÇA LOGIN NOVAMENTE.'; // O TOKEN DE SESSÃO EXPIROU 
+	  } 
+		return 'ERRO AO VALIDAR SESSÃO. FAÇA LOGIN NOVAMENTE.'; // QUALQUER OUTRO ERRO
+	}
+};

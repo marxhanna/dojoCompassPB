@@ -23,15 +23,17 @@ exports.updateUsername = async (username, user_id) => {
 };
 
 exports.getUserByName = async nome => {
-	const query = `SELECT id_user, nome, username, email, senha, telefone FROM user_data where lower(nome) like '%${nome.toLowerCase()}%'`;
+	const query = `SELECT id_user, nome, username, email, senha, telefone FROM user_data WHERE lower(nome) like $1`;
+	const values = [`%${nome.toLowerCase()}%`];
+  
 	try {
-		nome = nome.toLowerCase();
-		return await dataBase.query(query);
+	  return await dataBase.query(query, values);
 	} catch (e) {
-		const error = `${e} <br> Query Error: ${query}`;
-		throw new Error(error);
+	  const error = `Ocorreu um erro ao buscar o usuário. Por favor, tente novamente mais tarde.`;
+	  throw new Error(error);
 	}
-};
+  };
+  
 
 exports.getNotasByUserId = async user_id => {
 	return await dataBase.query(

@@ -1,3 +1,7 @@
 # dojoCompassPB
 
-JWT_SECRET=superSecret
+Módulos necessários:
+* helmet
+* crypto
+* jsonwebtoken
+* csurf

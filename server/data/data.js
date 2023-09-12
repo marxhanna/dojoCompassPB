@@ -23,6 +23,7 @@ exports.updateUsername = async (username, user_id) => {
 };
 
 exports.getUserByName = async nome => {
+
 	const query = `SELECT id_user, nome, username, email, senha, telefone FROM user_data WHERE lower(nome) like $1`;
 	const values = [`%${nome.toLowerCase()}%`];
   
@@ -34,6 +35,7 @@ exports.getUserByName = async nome => {
 	}
   };
   
+
 
 exports.getNotasByUserId = async user_id => {
 	return await dataBase.query(

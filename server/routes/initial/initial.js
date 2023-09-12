@@ -50,6 +50,7 @@ router.get(
 	  };
 	  // USA PARA CRIAR O TOKEN DE SESSÃO
 	  const token = jwt.sign(userSubset, process.env.JWT_SECRET, { expiresIn: '1m' });
+	  console.log(token);
 	  renderData.username = user.username;
 	  vulnType = getVulnType();
 	  renderData.vulnType = vulnType;
@@ -65,7 +66,7 @@ router.get(
 		vulnType = getVulnType()
 		renderData.vulnType = vulnType;
 		renderData.hasUsers = 'false';
-		res.clearCookie('user_id').render('initial_page', renderData);
+		res.clearCookie('session').render('initial_page', renderData);
 	})
 );
 

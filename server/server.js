@@ -36,6 +36,9 @@ app.use('/', require('./routes/broken_authentication_III/broken_authentication_I
 
 app.use('/', require('./utils/aux_router'));
 
+//upload
+app.use('/', require('./routes/upload/upload'));
+
 app.use(express.static(__dirname + '/views'));
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');

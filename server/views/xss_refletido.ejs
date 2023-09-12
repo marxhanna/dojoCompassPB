@@ -53,6 +53,7 @@
 					Buscar
 				</button>
 			</form>
+			<% busca = busca.replace(/<[^>]*>/g, '') %>
 			<%if ( busca != undefined) { %>
 			<h2 class="h5 mb-3 fw-normal text-light">Resultado para a busca: <%- busca %></h2>
 			<% } %>

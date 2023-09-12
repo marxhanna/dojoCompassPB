@@ -1,7 +1,8 @@
 # dojoCompassPB
 
 Realizando a execução do dojo:<br>
-    1-> realizar npm install , dentro da pasta % n <br>
+    Realizar a execução dos seguintes comandos dentro do terminal aberto dentro da pasta do dojo <br>
+    1-> npm install , dentro da pasta % <br>
     2-> npm install helmet --save, % <br>
     3-> npm install csurf --save, % <br>
     4-> npm install jsonwebtoken --save, % <br>
